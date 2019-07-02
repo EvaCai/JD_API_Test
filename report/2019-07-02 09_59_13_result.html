@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>JD Interface Test Report</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/Chart.js/0.2.0/Chart.min.js"></script>
+    <!-- <link href="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js" rel="stylesheet">   -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         {  }
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+	margin-left: 10px;
+}
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+a.popup_link:hover {
+    color: red;
+}
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+    margin-left: 10px;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+    margin-left: 10px;
+}
+#header_row {
+    font-weight: bold;
+    color: #606060;
+    background-color: #f5f5f5;
+    border-top-width: 10px;
+    border-color: #d6e9c6;
+	font-size: 12px;
+}
+#result_table td {
+    border: 1px solid #f5f5f5;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #d6e9c6; }
+.failClass  { background-color: #faebcc; }
+.errorClass { background-color: #ebccd1; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+/* -- chars ---------------------------------------------------------------------- */
+.testChars {margin-left: 150px;}
+.btn-info1 {
+    color: #fff;
+    background-color: #d6e9c6;
+    border-color: #d6e9c6;
+}
+.btn-info2 {
+    color: #fff;
+    background-color: #faebcc;
+    border-color: #faebcc;
+}
+.btn-info3 {
+    color: #fff;
+    background-color: #ebccd1;
+    border-color: #ebccd1;
+}
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+<div class='heading'>
+<h1>JD Interface Test Report</h1>
+<p class='attribute'><strong>Start Time:</strong> 2019-07-02 09:59:13</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:01.764772</p>
+<p class='attribute'><strong>Status:</strong> Pass 3</p>
+
+<p class='description'>Implementation Example with:</p>
+</div>
+<div style="float:left; margin-left: 10px;">
+	<p> Test Case Pie charts </p>
+	<a class="btn btn-xs btn-info1">-Pass-</a><br>
+	<a class="btn btn-xs btn-info2">-Faild-</a><br>
+	<a class="btn btn-xs btn-info3">-Error-</a><br>
+</div>
+<div class="testChars">
+	<canvas id="myChart" width="250" height="250"></canvas>
+</div>
+
+
+<p id='show_detail_line' style="margin-left: 10px;">Show
+<a href='javascript:showCase(0)' class="btn btn-outline-primary btn-sm">Summary</a>
+<a href='javascript:showCase(1)' class="btn btn-outline-warning btn-sm">Failed</a>
+<a href='javascript:showCase(2)' class="btn btn-outline-info btn-sm">All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="panel-title">
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>index_test.JDIndexTest: 京东首页接口测试</td>
+    <td>3</td>
+    <td>3</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',3)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_JD_index_token_is_empty: 调京东首页，报token is empty</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: {'success': False, 'error': {'code': 40008, 'name': '无效登录信息', 'msg': 'token is empty!'}}
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_JD_personal_index_success: 成功调京东个人版首页</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        pass</a>
+    <div id='div_pt1.2' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.2').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.2: {'code': 200, 'success': True, 'data': {'hotGoodsConfig': {'stick': [{'skuId': 5175755, 'jdPrice': '17900', 'sort': 1}, {'skuId': 5180965, 'jdPrice': '17900', 'sort': 2}, {'skuId': 7496711, 'jdPrice': '18900', 'sort': 3}, {'skuId': 100002272168, 'jdPrice': '11900', 'sort': 4}, {'skuId': 8169752, 'jdPrice': '11900', 'sort': 6}, {'skuId': 7426694, 'jdPrice': '6990', 'sort': 7}, {'skuId': 7438094, 'jdPrice': '24900', 'sort': 8}, {'skuId': 6154867, 'jdPrice': '5990', 'sort': 9}, {'skuId': 6828764, 'jdPrice': '7900', 'sort': 10}, {'skuId': 100002323977, 'jdPrice': '16900', 'sort': 45}], 'hotGoodsData': [{'skuId': 5180965, 'salePrice': 10290, 'img': 'jfs/t1/4423/19/4124/239293/5b9b6c1fEfc78a42b/46f7a97de3cd5d22.jpg', 'name': '佳佰 一壶六杯7件套 1.7L大容量冷水壶 花果茶壶果汁杯水杯陶瓷水具套装 釉下彩渐变蓝【100套起可定制】', 'status': 1, 'goodRate': 990, 'proStatus': 2, 'jdPrice': '17900', 'sort': 2, 'tag': 'INITSUCCESS'}, {'skuId': 7496711, 'salePrice': 10059, 'img': 'jfs/t1/31004/38/451/488181/5c3c34ddE55905632/a3473a286606d0c4.jpg', 'name': '佳佰 毛毯 法兰绒 毯子 办公室盖毯 午休毯 空调毯 棉阳绒法兰绒毯 午休毯 200*230cm 台紫 3斤', 'status': 1, 'goodRate': 980, 'jdPrice': '18900', 'sort': 3, 'tag': 'INITSUCCESS'}, {'skuId': 100002272168, 'salePrice': 11245, 'img': 'jfs/t1/18929/27/15843/143024/5cb33891Ec51f754e/df99d7be6bc1151f.jpg', 'name': '京造  保温壶2.0L  304不锈钢真空保温瓶便携大容量家用热水壶暖瓶  咖啡色', 'status': 1, 'goodRate': 990, 'jdPrice': '11900', 'sort': 4, 'tag': 'INITSUCCESS'}, {'skuId': 8169752, 'salePrice': 11900, 'img': 'jfs/t1/31512/9/10204/83819/5cadeabbE5553e2c1/510bb141ce58cb45.jpg', 'name': '京东京造按摩护颈枕  轻振动便携按摩器 记忆棉U型枕 午睡靠枕汽车头枕飞机旅行枕', 'status': 1, 'goodRate': 990, 'jdPrice': '11900', 'sort': 6, 'tag': 'INITSUCCESS'}, {'skuId': 7426694, 'salePrice': 6605, 'img': 'jfs/t18304/247/2621156471/115656/2b07a155/5b02b53eN55cad436.jpg', 'name': '京造  玻璃茶杯男不锈钢过滤办公茶具杯带盖泡花茶绿茶耐热玻璃杯套装 500ML', 'status': 1, 'goodRate': 990, 'jdPrice': '6990', 'sort': 7, 'tag': 'INITSUCCESS'}, {'skuId': 6828764, 'salePrice': 7455, 'img': 'jfs/t1/34598/40/2376/100242/5cb5c989E775c5ffd/ddb6b4a7d6b1c05e.jpg', 'name': '京东京造 雨伞 自动折叠晴雨伞 防泼水伞布一甩即干 方便收纳 黑色', 'status': 1, 'goodRate': 980, 'jdPrice': '7900', 'sort': 10, 'tag': 'INITSUCCESS'}, {'skuId': 100002323977, 'salePrice': 16900, 'img': 'jfs/t1/23262/35/15107/79047/5cac9281E8d768d82/50ed472907c345c9.jpg', 'name': '京造 无线运动蓝牙5.0耳机 霍尔磁吸开关 入耳式安卓苹果手机耳机 钢琴黑', 'status': 1, 'goodRate': 980, 'jdPrice': '16900', 'sort': 45, 'tag': 'INITSUCCESS'}]}, 'focusImgConfig': [{'img': 'https://app-icon-qn.jituancaiyun.com/-1532956061072.jpg', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=17', 'srcType': '1', 'sort': 1}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532956036465.jpg', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=18', 'srcType': '1', 'sort': 2}], 'iconConfig': [{'name': '大牌潮品', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidb63f6c53614331d6599fa2281f681c3c', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=20', 'srcType': '1', 'sort': 1}, {'name': '护肤用品', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid8ad6ab529f53743a7d988040f788f314', 'src': '#/list?keywords=面部护肤', 'srcType': '0', 'sort': 2}, {'name': '彩妆香氛', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid70c4cf5955d3ebd4e976c3b446bdd3f9', 'src': '#/list?cateId=595&amp;cateName=底妆', 'srcType': '0', 'sort': 3}, {'name': '母婴专区', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid3b8dfd55df6f0e5b4dc320e057c587b9', 'src': '#/list?keywords=婴儿用品', 'srcType': '0', 'sort': 4}, {'name': '日化洗护', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid63fa5259d64d5f2ddf7f0e9c5e3730a6', 'src': '#/list?keywords=洗护用品', 'srcType': '0', 'sort': 5}, {'name': '休闲零食', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidd203dfde2f048056a305c7eb8d1ee2f3', 'src': '#/list?keywords=休闲零食', 'srcType': '0', 'sort': 6}, {'name': '手表配饰', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid4175af062be67985d7875fc1e0febe31', 'src': '#/list?keywords=手表配饰', 'srcType': '0', 'sort': 7}, {'name': '居家生活', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fida920db097076b3559e6e25dfce1c6105', 'src': '#/list?keywords=居家用品', 'srcType': '0', 'sort': 8}, {'name': '牛奶饮品', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidf2639627cf01132e6a1adf7362cda49e', 'src': '#/list?keywords=牛奶饮品', 'srcType': '0', 'sort': 9}, {'name': '手机数码', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid3990c844cd60e64a0654dd1c35f1639c', 'src': '#/list?keywords=手机数码', 'srcType': '0', 'sort': 10}], 'floorConfig': [{'type': '1', 'sort': 1, 'name': '特惠优选', 'srcType': '0', 'id': [{'skuId': 1431626, 'jdPrice': '8900', 'sort': 1}, {'skuId': 1857008, 'jdPrice': '11990', 'sort': 2}, {'skuId': 3742086, 'jdPrice': '8700', 'sort': 3}, {'skuId': 8740306, 'jdPrice': '2900', 'sort': 4}, {'skuId': 5193373, 'jdPrice': '1990', 'sort': 5}, {'skuId': 8674079, 'jdPrice': '23900', 'sort': 6}], 'floorData': [{'skuId': 1431626, 'salePrice': 6752, 'img': 'jfs/t19600/31/1041308438/122944/aac8ba5f/5ab9aecfNc5048da2.jpg', 'name': '新西兰进口 纽麦福（Meadow fresh）进口纯牛奶 全脂250ml*24盒/箱', 'status': 1, 'goodRate': 990, 'jdPrice': '8900', 'sort': 1}, {'skuId': 1857008, 'salePrice': 9975, 'img': 'jfs/t4270/47/3293252643/210057/bc4af00a/58de19e0N66d91d30.jpg', 'name': '德国 进口牛奶 Arla爱氏晨曦 脱脂纯牛奶 1L*12 整箱装 爱氏小粉奶', 'status': 1, 'goodRate': 990, 'jdPrice': '11990', 'sort': 2}, {'skuId': 3742086, 'salePrice': 5775, 'img': 'jfs/t22102/235/1008667458/266849/8ac19dcd/5b1e0e4eN939bb206.jpg', 'name': '伊利 金典纯牛奶250ml*16盒/礼盒装', 'status': 1, 'goodRate': 990, 'jdPrice': '8700', 'sort': 3}, {'skuId': 8740306, 'salePrice': 1197, 'img': 'jfs/t26791/23/469656215/609901/cd7052e8/5baef3d1N7cc25987.jpg', 'name': '佳佰 便携式餐具筷子勺子3件套装 旅行外出学生白领便当配套神器', 'status': 1, 'goodRate': 990, 'jdPrice': '2900', 'sort': 4}, {'skuId': 8674079, 'salePrice': 10573, 'img': 'jfs/t1/20887/1/14947/172736/5cabf24bE046874e0/7665247973407811.jpg', 'name': '佳佰 乳胶枕 枕头 大颗粒泰国乳胶枕 进口乳胶释压按摩 枕芯', 'status': 1, 'goodRate': 990, 'jdPrice': '23900', 'sort': 6}]}, {'type': '5', 'sort': 2, 'name': '活动专区', 'data': [[{'img': 'https://app-icon-qn.jituancaiyun.com/-1532960380649.jpg', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=15', 'srcType': '1'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960386591.jpg', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=14', 'srcType': '1'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960391699.jpg', 'src': 'https://app.e.uban360.com/esc/app-entry/activity/index.html?id=16', 'srcType': '1'}]]}, {'type': '3', 'sort': 3, 'name': '', 'data': [[{'img': 'https://app-icon-qn.jituancaiyun.com/-1532960400632.jpg', 'src': '#/detail?id=1066690', 'srcType': '0'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960403995.jpg', 'src': '#/detail?id=3583108', 'srcType': '0'}]]}, {'type': '4', 'sort': 4, 'name': '', 'data': [[{'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidaa80ef69c94bdeee47de2d6f0a41a2ea', 'src': '#/detail?id=272134', 'srcType': '0'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960474428.jpg', 'src': '#/detail?id=4927753', 'srcType': '0'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960477330.jpg', 'src': '#/detail?id=326219', 'srcType': '0'}, {'img': 'https://app-icon-qn.jituancaiyun.com/-1532960479948.jpg', 'src': '#/detail?id=1123810', 'srcType': '0'}]]}]}}
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_JD_purchase_index_success: 成功调京东采购版首页</div></td>
+    <td colspan='5' align='center'>
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.3')" >
+        pass</a>
+    <div id='div_pt1.3' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.3').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.3: {'code': 200, 'success': True, 'data': {'hotGoodsConfig': {'stick': [{'skuId': 1351167, 'sort': 1}, {'skuId': 1351183, 'sort': 2}, {'skuId': 4378909, 'sort': 3}, {'skuId': 2689382, 'sort': 4}, {'skuId': 241191, 'sort': 5}, {'skuId': 4792034, 'sort': 6}, {'skuId': 100000291365, 'sort': 7}, {'skuId': 1147411, 'sort': 8}, {'skuId': 4219528, 'sort': 9}, {'skuId': 1398485, 'sort': 10}, {'skuId': 1398460, 'sort': 11}, {'skuId': 4528259, 'sort': 12}, {'skuId': 8965455, 'sort': 13}, {'skuId': 1698955, 'sort': 14}, {'skuId': 7282608, 'sort': 15}], 'hotGoodsData': [{'skuId': 1351167, 'salePrice': 425, 'img': 'jfs/t6919/42/2448601466/220575/10f66bc1/598bf65eNfaade016.jpg', 'name': '胜为（shengwei）LC-2010B 超5类百兆网线 1米 成品网络跳线  高速宽带线网线 彩色纯无氧铜网线 绿色网线', 'status': 1, 'goodRate': 990, 'proStatus': 2, 'sort': 1, 'tag': 'INITSUCCESS'}, {'skuId': 1351183, 'salePrice': 1219, 'img': 'jfs/t2827/126/2600942966/166540/e0a0a446/576caed4N9b6e91ba.jpg', 'name': '胜为（shengwei）LC-2050H 超5类百兆网线 5米 成品网络跳线  高速宽带线网线 彩色纯无氧铜网线 白色网线', 'status': 1, 'goodRate': 990, 'sort': 2, 'tag': 'INITSUCCESS'}, {'skuId': 2689382, 'salePrice': 62702, 'img': 'jfs/t1/711/31/11272/142319/5bcd8c63E542412bd/1e24b775ae5923a9.jpg', 'name': '惠科（HKC）M242 23.6英寸MVA广视角背光不闪高清台式机液晶电脑监控显示器屏幕办公显示屏（DVI/VGA接口）', 'status': 0, 'goodRate': 970, 'proStatus': 1, 'sort': 4, 'tag': 'INITSUCCESS'}, {'skuId': 241191, 'salePrice': 2550, 'img': 'jfs/t2638/4/205703099/71551/688ae9c3/5707afe1Nc6ad6380.jpg', 'name': '晨光(M&amp;G)K35黑色0.5mm经典子弹头中性笔按动签字笔水笔 12支/盒', 'status': 1, 'goodRate': 990, 'sort': 5, 'tag': 'INITSUCCESS'}, {'skuId': 1147411, 'salePrice': 104895, 'img': 'g16/M00/0C/10/rBEbRlOO2-IIAAAAAAHEypyKFAoAACb_ACCOWAAAcTi048.jpg', 'name': '南通精英（MR.RIGHT）120英寸16:9画框幕布 投影仪幕布 投影幕布 投影机幕布 幕布 电影银幕 电影幕布 电影幕', 'status': 1, 'goodRate': 970, 'sort': 8, 'tag': 'INITSUCCESS'}, {'skuId': 4219528, 'salePrice': 13900, 'img': 'jfs/t3178/241/4796170865/99146/cb5adc44/585734f6Nc617eb30.jpg', 'name': 'AUCS 白板架子 移动绿板黑板架支架式 可拉伸通用型 Shelf-2', 'status': 1, 'goodRate': 990, 'sort': 9, 'tag': 'INITSUCCESS'}, {'skuId': 1698955, 'salePrice': 2079, 'img': 'jfs/t1609/152/595738501/129625/40554fd1/5599d586N413464fc.jpg', 'name': '齐心(Comix) B2060 稳固型三层文件盘/文件座/文件框/文件架 黑色 办公文具', 'status': 1, 'goodRate': 970, 'sort': 14, 'tag': 'INITSUCCESS'}, {'skuId': 7282608, 'salePrice': 15645, 'img': 'jfs/t1/6148/24/2382/333376/5bd06b9eEeee4d754/8baf48f715e80fec.jpg', 'name': '京东京造 小易蓝牙音箱 高品质音质低音炮 随身迷你便携音响 智能语音交互 海量有声资源', 'status': 1, 'goodRate': 990, 'sort': 15, 'tag': 'INITSUCCESS'}]}, 'focusImgConfig': [{'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fide79eaf4c87dcae3f8f6ad64360f024fa', 'src': '', 'srcType': '0', 'sort': 1}], 'iconConfig': [{'name': '电脑', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidd9cd6d818c09977ccd098fc6a3f5ab75', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=电脑', 'srcType': '1', 'sort': 1}, {'name': '手机', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fidb1bc92ce7272ddeea10b1b9d2456d4a7', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=手机', 'srcType': '1', 'sort': 2}, {'name': '打印机', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid6ac8cd0f9bda55319f1404b0f49c4fb6', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=打印机', 'srcType': '1', 'sort': 3}, {'name': '净化器', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid69a6d820934d3b6ba58eac22c57261cd', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=净化器', 'srcType': '1', 'sort': 4}, {'name': '文件管理', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid93217ede229a840c78a2f270e1517bb4', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=文件管理', 'srcType': '1', 'sort': 5}, {'name': '办公文具', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid83497f1d24138a00b36b9bc86baac9c0', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=办公文具', 'srcType': '1', 'sort': 6}, {'name': '财会用品', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fida1599feae3425c2effbacfd564ff6cc9', 'src': 'https://app.e.uban360.com/jd/index.html#/list?keywords=财会用品', 'srcType': '1', 'sort': 7}, {'name': '办公用纸', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid9e1f11d1aee587d78370fa1fa25e67d2', 'src': '#/list?cateId=222&amp;cateName=纸类', 'srcType': '0', 'sort': 8}, {'name': '电脑配件', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fide773f7be443b3d893ec808b233ab22fa', 'src': '#/list?cateId=32&amp;cateName=电脑配件', 'srcType': '0', 'sort': 9}, {'name': '电器', 'img': 'https://filesystem.api.jituancaiyun.com/sfs/srvfile?digest=fid925aacb1a9ea299eb724839535bc1470', 'src': '#/list?cateId=43&amp;cateName=生活电器', 'srcType': '0', 'sort': 10}], 'floorConfig': [{'type': '1', 'sort': 1, 'name': '企业必备', 'id': [{'skuId': 8848011, 'sort': 1}, {'skuId': 216237, 'sort': 2}, {'skuId': 3923387, 'sort': 3}, {'skuId': 642738, 'sort': 4}, {'skuId': 1161759, 'sort': 5}, {'skuId': 722599, 'sort': 6}, {'skuId': 100001862883, 'sort': 7}, {'skuId': 7426694, 'sort': 8}], 'floorData': [{'skuId': 3923387, 'salePrice': 42900, 'img': 'jfs/t22663/68/477343855/169649/6181e82d/5b31d1d2Nc63c1f22.jpg', 'name': 'TP-LINK双千兆路由器 TL-WDR8620 2600M智能双频无线 千兆端口 光纤宽带 大户型穿墙', 'status': 1, 'goodRate': 980, 'sort': 3}, {'skuId': 642738, 'salePrice': 2250, 'img': 'jfs/t9382/235/2168548607/178713/d36a382a/59c9f226N6c39316d.jpg', 'name': '得力(deli)12本A5/40张无线装订软抄本办公记事本 文具笔记本子7651-12', 'status': 1, 'goodRate': 990, 'sort': 4}, {'skuId': 1161759, 'salePrice': 8900, 'img': 'jfs/t232/249/858335832/52874/26b294a2/53f2b3aeNcfe082b4.jpg', 'name': '得力(deli)10只 55mm牢固耐用进口材料粘扣档案盒 A4文件盒资料盒 蓝33126', 'status': 1, 'goodRate': 990, 'sort': 5}, {'skuId': 722599, 'salePrice': 2277, 'img': 'jfs/t3253/82/4050983607/127619/988f3788/58007e50Ne9cd48ca.jpg', 'name': '得力(deli)0.5mm按动中性笔办公签字笔 子弹头黑色水笔12支/盒S01', 'status': 1, 'goodRate': 990, 'sort': 6}, {'skuId': 100001862883, 'salePrice': 6142, 'img': 'jfs/t1/30660/24/10389/170166/5caf10a8Ef3df234c/e516bb6ff1cc018b.jpg', 'name': '京东京造桌面加湿器  办公室卧室迷你静音加湿 大喷雾大容量USB供电 橙粉色', 'status': 1, 'goodRate': 980, 'sort': 7}, {'skuId': 7426694, 'salePrice': 6605, 'img': 'jfs/t18304/247/2621156471/115656/2b07a155/5b02b53eN55cad436.jpg', 'name': '京造  玻璃茶杯男不锈钢过滤办公茶具杯带盖泡花茶绿茶耐热玻璃杯套装 500ML', 'status': 1, 'goodRate': 990, 'sort': 8}]}]}}
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>3</td>
+    <td class="text text-success">3</td>
+    <td class="text text-danger">0</td>
+    <td class="text text-warning">0</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+    <script type="text/javascript">
+var data = [
+	{
+		value: 0,
+		color: "#ebccd1",
+		label: "Error",
+		labelColor: 'white',
+		labelFontSize: '16'
+	},
+	{
+		value : 0,
+		color : "#faebcc",
+		label: "Fail",
+		labelColor: 'white',
+		labelFontSize: '16'
+	},
+	{
+		value : 3,
+		color : "#d6e9c6",
+		label : "Pass",
+		labelColor: 'white',
+		labelFontSize: '16'
+	}			
+]
+var newopts = {
+     animationSteps: 100,
+ 		animationEasing: 'easeInOutQuart',
+}
+//Get the context of the canvas element we want to select
+var ctx = document.getElementById("myChart").getContext("2d");
+var myNewChart = new Chart(ctx).Pie(data,newopts);
+</script>
+	
+</body>
+</html>
